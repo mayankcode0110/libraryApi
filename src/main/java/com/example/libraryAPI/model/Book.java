@@ -24,7 +24,7 @@ public class Book {
     @NotBlank(message = "Author name can not be empty")
     private String author;
 
-    @Min(value = 1, message = "Price cannot be less than INR 1")
+    @Min(value = 1, message = "Price can't be less than INR 1")
     private double price;
 
 }
