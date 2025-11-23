@@ -1,7 +1,9 @@
 package com.example.libraryAPI.controller;
 
+import com.example.libraryAPI.exception.BookNotFoundException;
 import com.example.libraryAPI.model.Book;
 import com.example.libraryAPI.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +17,14 @@ public class BookController {
         this.bookService = bookService;
     }
 
+
     @PostMapping()
-    public Book addBook(@RequestBody Book book){
+    public Book addBook(@Valid @RequestBody Book book){
         return bookService.addBook(book);
     }
 
     @PutMapping("/{id}")
-    public Book updateBook(@PathVariable Long id, @RequestBody Book book){
+    public Book updateBook(@PathVariable Long id, @RequestBody @Valid Book book){
         return bookService.updateBook(id, book);
     }
 

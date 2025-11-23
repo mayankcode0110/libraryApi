@@ -1,5 +1,6 @@
 package com.example.libraryAPI.service;
 
+import com.example.libraryAPI.exception.BookNotFoundException;
 import com.example.libraryAPI.model.Book;
 import com.example.libraryAPI.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class BookServiceImpl implements BookService{
     }
 
     public Book getBookByID(Long id){
-        return bookRepository.findById(id).orElse(null);
+        return bookRepository.findById(id).orElseThrow(()-> new BookNotFoundException(id));
     }
 
     public Book updateBook(Long id, Book updatedBook){
@@ -33,7 +34,7 @@ public class BookServiceImpl implements BookService{
             existingBook.setTitle(updatedBook.getTitle());
             existingBook.setPrice(updatedBook.getPrice());
             return bookRepository.save(existingBook);
-        }).orElse(null);
+        }).orElseThrow(() -> new BookNotFoundException(id));
     }
 
     public List<Book> getAllBooks(){
